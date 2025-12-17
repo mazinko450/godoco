@@ -5,6 +5,9 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build Binary (${{ matrix.os }})
@@ -61,6 +64,14 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          name: Release ${{ github.ref_name }}
+          body: |
+            Automated release for ${{ github.ref_name }}
+
+            ### Binaries
+            - Windows: `godoco-windows.exe`
+            - Linux: `godoco-linux`
+            - macOS: `godoco-macos`
           files: |
             artifacts/godoco-windows.exe
             artifacts/godoco-linux
