@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
@@ -56,13 +56,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts
+          merge-multiple: true
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            artifacts/godoco-windows/godoco-windows.exe
-            artifacts/godoco-linux/godoco-linux
-            artifacts/godoco-macos/godoco-macos
+            artifacts/godoco-windows.exe
+            artifacts/godoco-linux
+            artifacts/godoco-macos
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
